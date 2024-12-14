@@ -17,3 +17,33 @@ class CarbonCalculator
     def calc_travel(traveled_distance , fuel_efficiency)
         """Calculate Business Travel emission through equation"""
         return(traveled_distance * (1 / fuel_efficiency) * 2.31)
+    
+    def calc_total_emission(energy , waste , travel)
+        return (energy + waste + travel)
+    
+#Main app
+
+class carbonfootapp
+    def run(self):
+        st.title("🌿 Carbon Footprint Calculator")
+        st.write("Calculate your carbon emissions from energy, waste, and travel.")
+
+     # User Input Section
+        st.header("📜 Enter Your Details")
+        calculator_type = st.selectbox("Calculator Type:", ["Personal", "Business", "Industrial"])
+        user_name = st.text_input("Your Name:", "Person/Company Name")
+        year = st.number_input("Year:", min_value=2000, max_value=2100, value=datetime.now().year)
+
+        # Input fields for Energy, Waste, and Travel
+        st.header("💡 Energy Usage")
+        electricity = st.number_input("Monthly Electricity Bill (€):", min_value=0.0, value=0.0)
+        gas = st.number_input("Monthly Gas Bill (€):", min_value=0.0, value=0.0)
+        fuel = st.number_input("Monthly Fuel Bill (€):", min_value=0.0, value=0.0)
+
+        st.header("🗑 Waste Management")
+        waste = st.number_input("Monthly Waste (kg):", min_value=0.0, value=0.0)
+        recycling = st.slider("Recycling Percentage (%):", min_value=0, max_value=100, value=0)
+
+        st.header("🚗 Travel Impact")
+        travel_distance = st.number_input("Annual Travel Distance (km):", min_value=0.0, value=0.0)
+        fuel_efficiency = st.number_input("Fuel Efficiency (L/100km):", min_value=0.1, value=10.0)
