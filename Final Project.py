@@ -5,7 +5,7 @@ from io import BytesIO
 from fpdf import FPDF
 
 #Calculate emissions calculations
-class CarbonCalculator
+class CarbonCal
     def calc_energy(electricity, gas, fuel)
         """calculate energy emission through equation"""
         return((electricity * 12 * 0.0005) + (gas * 12 * 0.0053) + (fuel * 12 * 2.32))
@@ -23,7 +23,7 @@ class CarbonCalculator
     
 #Main app
 
-class carbonfootapp
+class Emissionapp
     def run(self):
         st.title("🌿 Carbon Footprint Calculator")
         st.write("Calculate your carbon emissions from energy, waste, and travel.")
@@ -47,3 +47,20 @@ class carbonfootapp
         st.header("🚗 Travel Impact")
         travel_distance = st.number_input("Annual Travel Distance (km):", min_value=0.0, value=0.0)
         fuel_efficiency = st.number_input("Fuel Efficiency (L/100km):", min_value=0.1, value=10.0)
+
+        if st.button("Calculate Emissions"):
+
+            energy_emissions = CarbonCal.calc_energy(electricity, gas, fuel)
+            waste_emissions = CarbonCal.calc_waste(waste, recycling)
+            travel_emissions = CarbonCal.calc_travel(travel_distance, fuel_efficiency)
+            total_emissions = CarbonCal.calc_total_emission(energy_emissions, waste_emissions, travel_emissions)
+
+            # Display results
+            st.subheader("Results")
+            st.write(f"**Name:** {user_name}")
+            st.write(f"**Year:** {year}")
+            st.write(f"**Calculator Type:** {calculator_type}")
+            st.write(f"**Energy Emissions:** {energy_emissions:.2f} kgCO2")
+            st.write(f"**Waste Emissions:** {waste_emissions:.2f} kgCO2")
+            st.write(f"**Travel Emissions:** {travel_emissions:.2f} kgCO2")
+            st.write(f"**Total Carbon Emissions:** {total_emissions:.2f} kgCO2")
